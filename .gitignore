@@ -1,0 +1,27 @@
+# ignore eclipse project files
+.project
+.classpath
+# ignore Intellij Idea project files
+.idea
+*.iml
+*.iws
+/target/
+
+/bin/
+build
+.settings/
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# Mac
+.DS_Store
+
+#project
+.env
