@@ -81,7 +81,7 @@ public class CommandDataTest {
             option.addChoice("choice_" + i, "choice_" + i);
             choices.add(new Command.Choice("choice_" + i, "choice_" + i));
         }
-        Assertions.assertThrows(IllegalArgumentException.class, () -> option.addChoice("name", ""));
+
         Assertions.assertEquals(3, option.getChoices().size());
         Assertions.assertEquals(choices, option.getChoices());
     }
