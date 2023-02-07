@@ -1,5 +1,8 @@
 package org.example.commands;
 
+import net.dv8tion.jda.api.entities.channel.Channel;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -26,6 +29,21 @@ public class CommandManager extends ListenerAdapter {
             String message = messageOption.getAsString();
             event.getChannel().sendMessage(message).queue();
             event.reply("Your message is sent").setEphemeral(true).queue();
+        } else if (command.equals("chat")) {
+            OptionMapping contentOption = event.getOption("content");
+            String content = contentOption.getAsString();
+
+            MessageChannel channel;
+            //Channel channel;
+            OptionMapping channelOption = event.getOption("channel");
+            if (channelOption != null){
+                channel = channelOption.getAsChannel().asTextChannel();
+            }else{
+                channel = event.getChannel();
+            }
+            channel.sendMessage(content).queue();
+            event.reply("Your chat content is sent").setEphemeral(true).queue();
+
         }
     }
 
@@ -37,6 +55,11 @@ public class CommandManager extends ListenerAdapter {
 
         OptionData option1 = new OptionData(OptionType.STRING, "message","The message you want the bot say", true);
         commandData.add(Commands.slash("say","Make a bot say a message").addOptions(option1));
+
+        commandData.add(Commands.slash("chat", "Make a bot chat in a chanel")
+                .addOptions(new OptionData(OptionType.STRING,"content", "The content you want a bot say", true),
+                        new OptionData(OptionType.CHANNEL, "channel","The channel you want to send this content in",false)
+                                .setChannelTypes(ChannelType.TEXT)));
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
@@ -48,6 +71,10 @@ public class CommandManager extends ListenerAdapter {
 
         OptionData option1 = new OptionData(OptionType.STRING, "message","The message you want the bot say", true);
         commandData.add(Commands.slash("say","Make a bot say a message").addOptions(option1));
+
+        commandData.add(Commands.slash("chat", "Make a bot chat in a chanel")
+                .addOptions(new OptionData(OptionType.STRING,"content", "The content you want a bot say", true),
+                        new OptionData(OptionType.CHANNEL, "channel","The channel you want to send this content in",false)));
         event.getGuild().updateCommands().addCommands(commandData).queue();
 
     }
