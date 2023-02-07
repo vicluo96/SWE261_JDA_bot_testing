@@ -74,7 +74,8 @@ public class CommandManager extends ListenerAdapter {
 
         commandData.add(Commands.slash("chat", "Make a bot chat in a chanel")
                 .addOptions(new OptionData(OptionType.STRING,"content", "The content you want a bot say", true),
-                        new OptionData(OptionType.CHANNEL, "channel","The channel you want to send this content in",false)));
+                        new OptionData(OptionType.CHANNEL, "channel","The channel you want to send this content in",false)
+                                .setChannelTypes(ChannelType.TEXT)));
         event.getGuild().updateCommands().addCommands(commandData).queue();
 
     }
