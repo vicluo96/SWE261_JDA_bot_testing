@@ -44,6 +44,23 @@ public class CommandManager extends ListenerAdapter {
             channel.sendMessage(content).queue();
             event.reply("Your chat content is sent").setEphemeral(true).queue();
 
+        }else if (command.equals("mood")){
+            OptionMapping option = event.getOption("type");
+            String type = option.getAsString();
+            String replyMessage = "";
+
+            switch (type.toLowerCase()){
+                case "angry" -> {
+                    replyMessage = "You really pissed me off!";
+                }
+                case "haha" -> {
+                    replyMessage = "Haha you are hilarious";
+                }
+                case "wow" -> {
+                    replyMessage = "Wow, you surprised me!";
+                }
+            }
+            event.reply(replyMessage).queue();
         }
     }
 
@@ -60,6 +77,12 @@ public class CommandManager extends ListenerAdapter {
                 .addOptions(new OptionData(OptionType.STRING,"content", "The content you want a bot say", true),
                         new OptionData(OptionType.CHANNEL, "channel","The channel you want to send this content in",false)
                                 .setChannelTypes(ChannelType.TEXT)));
+
+        commandData.add(Commands.slash("mood", "Express your current mood through text ")
+                .addOptions(new OptionData(OptionType.STRING, "type", "The type of your mood", true)
+                        .addChoice("Angry","angry")
+                        .addChoice("Haha","haha")
+                        .addChoice("Wow", "wow")));
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 
@@ -76,6 +99,13 @@ public class CommandManager extends ListenerAdapter {
                 .addOptions(new OptionData(OptionType.STRING,"content", "The content you want a bot say", true),
                         new OptionData(OptionType.CHANNEL, "channel","The channel you want to send this content in",false)
                                 .setChannelTypes(ChannelType.TEXT)));
+
+        commandData.add(Commands.slash("mood", "Express your current mood through text ")
+                .addOptions(new OptionData(OptionType.STRING, "type", "The type of your mood", true)
+                        .addChoice("Angry","angry")
+                        .addChoice("Haha","haha")
+                        .addChoice("Wow", "wow")));
+
         event.getGuild().updateCommands().addCommands(commandData).queue();
 
     }
