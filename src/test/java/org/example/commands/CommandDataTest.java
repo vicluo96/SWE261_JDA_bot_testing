@@ -67,6 +67,12 @@ public class CommandDataTest {
         CommandDataImpl command = new CommandDataImpl("mood", "Express your current mood through text");
         OptionData option = new OptionData(OptionType.STRING, "type", "The type of your mood", true);
         command.addOptions(option);
+
+        DataObject data = command.toData();
+        DataArray options = data.getArray("options");
+        DataObject optionObj = options.getObject(0);
+        Assertions.assertTrue(optionObj.getBoolean("required"));
+
         Assertions.assertThrows(IllegalArgumentException.class, () -> option.addChoice("invalidIntValue", 12345));
         Assertions.assertThrows(IllegalArgumentException.class, () -> option.addChoice("invalidFloatValue", 12.345));
         List<Command.Choice> choices = new ArrayList<>();
