@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import org.example.commands.CommandManager;
 
 import javax.security.auth.login.LoginException;
 
@@ -23,6 +24,8 @@ public class TestBot {
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("Grand Theft Auto V"));
         shardManager = builder.build();
+        //Register event listeners
+        shardManager.addEventListener(new CommandManager());
 
     }
 
