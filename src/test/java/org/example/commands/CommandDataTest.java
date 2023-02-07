@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -9,6 +10,9 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandDataTest {
     @Test
@@ -58,4 +62,21 @@ public class CommandDataTest {
 
     }
 
+    @Test
+    public void testCommandWithChoices() {
+        CommandDataImpl command = new CommandDataImpl("mood", "Express your current mood through text");
+        OptionData option = new OptionData(OptionType.STRING, "type", "The type of your mood", true);
+        command.addOptions(option);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> option.addChoice("invalidIntValue", 12345));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> option.addChoice("invalidFloatValue", 12.345));
+        List<Command.Choice> choices = new ArrayList<>();
+        for (int i = 0; i < 3; i++)
+        {
+            option.addChoice("choice_" + i, "choice_" + i);
+            choices.add(new Command.Choice("choice_" + i, "choice_" + i));
+        }
+        Assertions.assertThrows(IllegalArgumentException.class, () -> option.addChoice("name", ""));
+        Assertions.assertEquals(3, option.getChoices().size());
+        Assertions.assertEquals(choices, option.getChoices());
+    }
 }
