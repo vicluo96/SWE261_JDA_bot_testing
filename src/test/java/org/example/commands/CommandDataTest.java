@@ -14,6 +14,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* reference: https://github.com/DV8FromTheWorld/JDA
+* */
+
 public class CommandDataTest {
     @Test
     public void testSlashCommand(){

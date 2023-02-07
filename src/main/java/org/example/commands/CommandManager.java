@@ -16,6 +16,10 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import java.util.ArrayList;
 import java.util.List;
 
+/*reference: JDA 5: Discord Bot Tutorial by TechnoVision
+https://www.youtube.com/watch?v=oeXlOuP9Rsg&list=PLDhiRTZ_vnoWcdVDvT896SjLmqMfPvrXK&index=1
+ */
+
 public class CommandManager extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
